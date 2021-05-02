@@ -2,8 +2,6 @@ import os
 from twilio.rest import Client
 import tweepy
 import logging
-import smtplib
-from email.message import EmailMessage
 from dotenv import load_dotenv
 
 load_dotenv()
@@ -11,6 +9,8 @@ load_dotenv()
 twilio_id = os.getenv('TWILIO_ACCOUNT_SID')
 twilio_auth = os.getenv('TWILIO_AUTH_TOKEN')
 twilio_number = os.getenv('TWILIO_NUMBER')
+
+my_number = os.getenv('MY_NUMBER')
 
 twitter_key = os.getenv('TWITTER_KEY')
 twitter_secret = os.getenv('TWITTER_SECRET')
@@ -50,7 +50,7 @@ def startup():
 
 # TWILIO
 def send_sms(body):
-    client.messages.create(to="+381628467006", 
+    client.messages.create(to=my_number, 
                        from_=twilio_number, 
                        body=body)
 
