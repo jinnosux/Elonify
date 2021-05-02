@@ -49,7 +49,7 @@ def send_sms(body):
 def tweet_engine(status):
     #check for tweets
     if any(tweet in status.text.lower() for tweet in keywords) and status.user.id_str == "792718816220422144":
-        send_sms(f"Papa Elon Just Tweeted: {status.text}")
+        send_sms(f"Papa Elon Just Tweeted:\n{status.text}.\n URL : https://mobile.twitter.com/elonmusk/status/{status.id}")
 
 class MyStreamListener(tweepy.StreamListener):
     def on_status(self, status):
