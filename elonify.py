@@ -6,6 +6,7 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
+#Secrets
 twilio_id = os.getenv('TWILIO_ACCOUNT_SID')
 twilio_auth = os.getenv('TWILIO_AUTH_TOKEN')
 twilio_number = os.getenv('TWILIO_NUMBER')
@@ -18,24 +19,14 @@ twitter_token = os.getenv('TWITTER_TOKEN')
 twitter_token_secret = os.getenv('TWITTER_TOKEN_SECRET')
 
 
-#TWILIO Secret
+#TWILIO
 client = Client(twilio_id, twilio_auth)
 
-keywords = ["stock", "share", "$", "doge", "crypto", "bitcoin", "dogefather", "SNL", "stonk", "dog", ]
+keywords = ["dogefather",  "dog", "doge", "stock", "stonk", "share", "$", "crypto", "bitcoin", "btc" "SNL", "AI", "hodl"]
 
-
-# Return path to a given file based on current directory
-def get_current_path(filename: str):
-    if "src" in os.getcwd():
-        return os.path.join(os.path.dirname(os.getcwd()), filename)
-    else:
-        return os.path.join(os.getcwd(), filename)
-
-
-
-# TWITTER
 logger = logging.getLogger()
 def startup():
+    # TWITTER
     auth = tweepy.OAuthHandler(twitter_key, twitter_secret)
     auth.set_access_token(twitter_token, twitter_token_secret)
     api = tweepy.API(auth, parser=tweepy.parsers.JSONParser())
@@ -48,21 +39,17 @@ def startup():
     return api
 
 
-# TWILIO
 def send_sms(body):
+    # twilio
     client.messages.create(to=my_number, 
                        from_=twilio_number, 
                        body=body)
 
 
 def tweet_engine(status):
-
+    #check for tweets
     if any(tweet in status.text.lower() for tweet in keywords) and status.user.id_str == "792718816220422144":
         send_sms(f"Papa Elon Just Tweeted: {status.text}")
-        #send_sms(f"Elon tweeted: {status.text} - on {time.ctime()}", False)
-    # If no keywords match, check if there is an image
-
-
 
 class MyStreamListener(tweepy.StreamListener):
     def on_status(self, status):
@@ -73,7 +60,7 @@ def main():
     api = startup()
     elon_tweet_listener = tweepy.Stream(auth=api.auth, listener=MyStreamListener())
     # '44196397' is the ID for the @elonmusk account
-    # '792718816220422144' is mine
+    # '792718816220422144' is mine, for testing purposes
     elon_tweet_listener.filter(follow=["792718816220422144"], is_async=True)
 
 
