@@ -42,7 +42,7 @@ def startup():
 def send_sms(body):
     # twilio
     client.messages.create(to=my_number, 
-                       from_=twilio_number, 
+                       from_="Elonify", 
                        body=body)
 
 
