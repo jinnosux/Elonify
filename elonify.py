@@ -36,13 +36,8 @@ def get_current_path(filename: str):
 # TWITTER
 logger = logging.getLogger()
 def startup():
-    consumer_key = twitter_key
-    consumer_secret = twitter_secret
-    access_token = twitter_token
-    access_token_secret = twitter_token_secret
-
-    auth = tweepy.OAuthHandler(consumer_key, consumer_secret)
-    auth.set_access_token(access_token, access_token_secret)
+    auth = tweepy.OAuthHandler(twitter_key, twitter_secret)
+    auth.set_access_token(twitter_token, twitter_token_secret)
     api = tweepy.API(auth, parser=tweepy.parsers.JSONParser())
     try:
         api.verify_credentials()
