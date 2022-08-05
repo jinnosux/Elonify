@@ -9,4 +9,4 @@ Dogecoin to the moon! :D
 
 ideas:
 - add AI Recognition for photos ??
-- make a webpage where users can add their phone number to the list ?? (twilio is pricey, you know)
+- make a webpage where users can add their phone number to the list ??
